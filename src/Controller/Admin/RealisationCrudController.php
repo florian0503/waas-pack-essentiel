@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
+/** @extends AbstractCrudController<Realisation> */
 class RealisationCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string

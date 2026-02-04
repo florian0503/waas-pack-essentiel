@@ -12,7 +12,7 @@ class Avis
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id = null; // @phpstan-ignore property.onlyWritten
 
     #[ORM\Column(length: 100)]
     private ?string $nom = null;
@@ -27,7 +27,7 @@ class Avis
     private ?int $note = null;
 
     #[ORM\Column]
-    private ?bool $actif = true;
+    private bool $actif = true;
 
     public function getId(): ?int
     {
@@ -82,7 +82,7 @@ class Avis
         return $this;
     }
 
-    public function isActif(): ?bool
+    public function isActif(): bool
     {
         return $this->actif;
     }

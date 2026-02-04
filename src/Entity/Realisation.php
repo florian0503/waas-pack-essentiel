@@ -11,7 +11,7 @@ class Realisation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id = null; // @phpstan-ignore property.onlyWritten
 
     #[ORM\Column(length: 255)]
     private ?string $titre = null;
@@ -20,7 +20,7 @@ class Realisation
     private ?string $image = null;
 
     #[ORM\Column]
-    private ?bool $actif = true;
+    private bool $actif = true;
 
     public function getId(): ?int
     {
@@ -51,7 +51,7 @@ class Realisation
         return $this;
     }
 
-    public function isActif(): ?bool
+    public function isActif(): bool
     {
         return $this->actif;
     }
