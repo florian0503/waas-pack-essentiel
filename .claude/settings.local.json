@@ -10,6 +10,9 @@
       "Bash(git commit:*)",
       "Bash(git config:*)",
       "Bash(git checkout:*)",
+      "Bash(php -S:*)",
+      "Bash(php:*)",
+      "Bash(git status:*)",
       "Bash(git merge:*)"
     ]
   }
