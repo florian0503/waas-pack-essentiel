@@ -38,4 +38,30 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.reveal-stagger').forEach((el) => {
         staggerObserver.observe(el);
     });
+
+    // Counter animation for badge number
+    const counterEl = document.querySelector('.badge-number');
+    if (counterEl) {
+        const target = parseInt(counterEl.textContent, 10);
+        counterEl.textContent = '0';
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    let current = 0;
+                    const animate = () => {
+                        current++;
+                        counterEl.textContent = current;
+                        if (current < target) {
+                            const progress = current / target;
+                            const delay = 80 + (progress * progress * 300);
+                            setTimeout(animate, delay);
+                        }
+                    };
+                    animate();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        counterObserver.observe(counterEl);
+    }
 });
