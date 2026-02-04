@@ -64,4 +64,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { threshold: 0.5 });
         counterObserver.observe(counterEl);
     }
+
+    // Show/hide scroll-to-top button
+    const scrollTop = document.querySelector('.scroll-top');
+    if (scrollTop) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+    }
 });
