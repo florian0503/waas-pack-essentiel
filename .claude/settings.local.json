@@ -13,7 +13,9 @@
       "Bash(php -S:*)",
       "Bash(php:*)",
       "Bash(git status:*)",
-      "Bash(git merge:*)"
+      "Bash(git merge:*)",
+      "Bash(vendor/bin/php-cs-fixer fix:*)",
+      "Bash(vendor/bin/phpstan analyse:*)"
     ]
   }
 }
