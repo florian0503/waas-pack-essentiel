@@ -6,9 +6,12 @@ use App\Entity\Partenaire;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 /** @extends AbstractCrudController<Partenaire> */
 class PartenaireCrudController extends AbstractCrudController
@@ -30,8 +33,13 @@ class PartenaireCrudController extends AbstractCrudController
     {
         return [
             TextField::new('nom', 'Nom'),
-            TextField::new('logo', 'Image du logo')->setHelp('Nom du fichier dans uploads/partenaires/'),
-            UrlField::new('url', 'Site web')->setRequired(false),
+            Field::new('logoFile', 'Logo')
+                ->setFormType(VichImageType::class)
+                ->onlyOnForms(),
+            ImageField::new('logo', 'Logo')
+                ->setBasePath('uploads/partenaires')
+                ->onlyOnIndex(),
+            TextField::new('url', 'Site web')->setRequired(false)->setHelp('Ex: www.site.fr ou https://site.fr'),
             IntegerField::new('position', 'Position'),
             BooleanField::new('actif', 'Actif'),
         ];

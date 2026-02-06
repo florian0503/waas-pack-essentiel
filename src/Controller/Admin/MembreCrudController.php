@@ -6,9 +6,12 @@ use App\Entity\Membre;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 /** @extends AbstractCrudController<Membre> */
 class MembreCrudController extends AbstractCrudController
@@ -31,7 +34,12 @@ class MembreCrudController extends AbstractCrudController
         return [
             TextField::new('nom', 'Nom'),
             TextField::new('poste', 'Poste'),
-            TextField::new('photo', 'Photo')->setHelp('Nom du fichier dans uploads/equipe/'),
+            Field::new('photoFile', 'Photo')
+                ->setFormType(VichImageType::class)
+                ->onlyOnForms(),
+            ImageField::new('photo', 'Photo')
+                ->setBasePath('uploads/equipe')
+                ->onlyOnIndex(),
             UrlField::new('linkedin', 'LinkedIn')->setRequired(false),
             IntegerField::new('position', 'Position'),
             BooleanField::new('actif', 'Actif'),

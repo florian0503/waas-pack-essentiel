@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\RealisationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: RealisationRepository::class)]
+#[Vich\Uploadable]
 class Realisation
 {
     #[ORM\Id]
@@ -17,8 +20,14 @@ class Realisation
     #[ORM\Column(length: 255)]
     private ?string $titre = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
+
+    #[Vich\UploadableField(mapping: 'realisations', fileNameProperty: 'image')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column]
     private bool $actif = true;
@@ -45,9 +54,37 @@ class Realisation
         return $this->image;
     }
 
-    public function setImage(string $image): static
+    public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): static
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
