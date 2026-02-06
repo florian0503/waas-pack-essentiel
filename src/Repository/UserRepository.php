@@ -17,7 +17,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function upgradePassword(\Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
-        /* @var User $user */
+        if (!$user instanceof User) {
+            throw new \InvalidArgumentException(sprintf('Instances of "%s" are not supported.', $user::class));
+        }
+
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
