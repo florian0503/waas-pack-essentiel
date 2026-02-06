@@ -7,11 +7,11 @@
         <section class="hero">
             <div class="hero-container">
                 <div class="hero-content">
-                    <h1 class="hero-title">Quality Services for Your Needs</h1>
+                    <h1 class="hero-title">Des services de qualité pour vos besoins</h1>
                     <p class="hero-description">Nous offrons des solutions professionnelles adaptées à vos besoins. Notre expertise et notre engagement garantissent des résultats exceptionnels.</p>
-                    <div class="hero-buttons">
+                    <div class="hero-buttons" data-turbo="false">
                         <a href="#contact" class="btn-primary">Contactez-nous &rarr;</a>
-                        <a href="#" class="btn-outline">Nos services</a>
+                        <a href="#realisations" class="btn-outline">Nos Réalisations</a>
                     </div>
                 </div>
                 <div class="hero-image">
@@ -23,57 +23,67 @@
                 </div>
             </div>
         </section>
-        <section class="prestations">
+        {% if prestations is not empty %}
+        <section class="prestations" id="prestations">
             <div class="prestations-container">
                 <h2 class="prestations-title reveal">Nos Prestations</h2>
                 <p class="prestations-subtitle reveal">Découvrez nos services conçus pour répondre à tous vos besoins avec excellence et professionnalisme</p>
                 <div class="prestations-grid reveal-stagger">
-                    <div class="prestation-card reveal-child">
-                        <div class="prestation-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
-                            </svg>
+                    {% for prestation in prestations %}
+                        <div class="prestation-card reveal-child">
+                            <div class="prestation-icon">
+                                <i class="{{ prestation.icone }}"></i>
+                            </div>
+                            <h3 class="prestation-name">{{ prestation.nom }}</h3>
+                            <p class="prestation-desc">{{ prestation.description }}</p>
                         </div>
-                        <h3 class="prestation-name">Service Professionnel</h3>
-                        <p class="prestation-desc">Des prestations de qualité réalisées par des experts qualifiés avec un souci du détail exceptionnel.</p>
-                    </div>
-                    <div class="prestation-card reveal-child">
-                        <div class="prestation-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M12 6v6l4 2"/>
-                            </svg>
-                        </div>
-                        <h3 class="prestation-name">Rapidité et Efficacité</h3>
-                        <p class="prestation-desc">Nous travaillons rapidement et efficacement pour vous offrir des solutions optimisées et rapides.</p>
-                    </div>
-                    <div class="prestation-card reveal-child">
-                        <div class="prestation-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="8" r="6"/>
-                                <path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/>
-                            </svg>
-                        </div>
-                        <h3 class="prestation-name">Reconnaissance et Distinction</h3>
-                        <p class="prestation-desc">Nos services sont reconnus et distinguent par leur excellence et leur professionnalisme.</p>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
-        <section class="about">
+        {% endif %}
+        <section class="about" id="about">
             <div class="about-container">
                 <div class="about-image reveal reveal-left">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80" alt="Notre équipe">
+                    {% if apropos and apropos.image %}
+                        <img src="{{ asset('uploads/apropos/' ~ apropos.image) }}" alt="{{ apropos.titre ?? 'Notre équipe' }}" loading="lazy">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80" alt="Notre équipe" loading="lazy">
+                    {% endif %}
                 </div>
                 <div class="about-content reveal reveal-right">
-                    <h2 class="about-title">Qui sommes-nous ?</h2>
-                    <p class="about-text">Depuis plus de 15 ans, nous mettons notre expertise au service de nos clients pour leur offrir des prestations de qualité supérieure. Notre équipe de professionnels qualifiés s'engage à fournir des résultats exceptionnels.</p>
-                    <p class="about-text">Nous croyons en l'importance de l'écoute, de la transparence et de l'excellence. Chaque projet est une opportunité de démontrer notre savoir-faire et notre engagement envers la satisfaction client.</p>
-                    <p class="about-text">Notre approche personnalisée garantit que chaque solution est parfaitement adaptée à vos besoins spécifiques, avec un souci constant de la qualité et des délais.</p>
+                    <h2 class="about-title">{{ apropos ? apropos.titre : 'Qui sommes-nous ?' }}</h2>
+                    <p class="about-text">{{ apropos ? apropos.paragraphe1 : 'Depuis plus de 15 ans, nous mettons notre expertise au service de nos clients pour leur offrir des prestations de qualité supérieure.' }}</p>
+                    {% if apropos and apropos.paragraphe2 %}
+                        <p class="about-text">{{ apropos.paragraphe2 }}</p>
+                    {% elseif not apropos %}
+                        <p class="about-text">Nous croyons en l'importance de l'écoute, de la transparence et de l'excellence. Chaque projet est une opportunité de démontrer notre savoir-faire.</p>
+                    {% endif %}
+                    {% if apropos and apropos.paragraphe3 %}
+                        <p class="about-text">{{ apropos.paragraphe3 }}</p>
+                    {% elseif not apropos %}
+                        <p class="about-text">Notre approche personnalisée garantit que chaque solution est parfaitement adaptée à vos besoins spécifiques.</p>
+                    {% endif %}
                 </div>
             </div>
         </section>
-        <section class="avis">
+        {% if chiffres is not empty %}
+        <section class="chiffres" id="chiffres">
+            <div class="chiffres-container reveal">
+                {% for chiffre in chiffres %}
+                    <div class="chiffre-item">
+                        {% if chiffre.icone %}
+                            <i class="{{ chiffre.icone }} chiffre-icon"></i>
+                        {% endif %}
+                        <span class="chiffre-nombre" data-target="{{ chiffre.nombre }}">0</span>
+                        <span class="chiffre-label">{{ chiffre.label }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <section class="avis" id="avis">
             <div class="avis-container">
                 <h2 class="avis-title reveal">Ce que disent nos clients</h2>
                 <p class="avis-subtitle reveal">La satisfaction de nos clients est notre plus belle récompense</p>
@@ -92,28 +102,134 @@
                                     <span class="avis-role">{{ item.poste }}</span>
                                 </div>
                             </div>
-                        {% else %}
-                            <p class="avis-empty">Aucun avis pour le moment.</p>
+                        {% endfor %}
+                        {# Duplication pour boucle infinie #}
+                        {% for item in avis %}
+                            <div class="avis-card" aria-hidden="true">
+                                <div class="avis-stars">
+                                    {% for i in 1..5 %}
+                                        <span class="star {{ i <= item.note ? 'star-filled' : '' }}">★</span>
+                                    {% endfor %}
+                                </div>
+                                <p class="avis-content">"{{ item.contenu }}"</p>
+                                <div class="avis-author">
+                                    <span class="avis-name">{{ item.nom }}</span>
+                                    <span class="avis-role">{{ item.poste }}</span>
+                                </div>
+                            </div>
                         {% endfor %}
                     </div>
                 </div>
             </div>
         </section>
-        <section class="realisations">
+        <section class="realisations" id="realisations">
             <div class="realisations-container">
                 <h2 class="realisations-title reveal">Nos Réalisations</h2>
                 <p class="realisations-subtitle reveal">Découvrez quelques-uns de nos projets récents</p>
-                <div class="realisations-grid reveal-stagger">
+                <div class="realisations-grid reveal-stagger" data-limit-desktop="6" data-limit-mobile="3">
                     {% for realisation in realisations %}
                         <div class="realisation-card reveal-child">
-                            <img src="{{ asset('uploads/realisations/' ~ realisation.image) }}" alt="{{ realisation.titre }}">
+                            <img src="{{ asset('uploads/realisations/' ~ realisation.image) }}" alt="{{ realisation.titre }}" loading="lazy">
                         </div>
                     {% else %}
                         <p class="realisations-empty">Aucune réalisation pour le moment.</p>
                     {% endfor %}
                 </div>
+                {% if realisations|length > 3 %}
+                    <div class="voir-plus-wrapper reveal">
+                        <button class="btn-voir-plus" data-grid=".realisations-grid" data-child=".realisation-card">Voir plus</button>
+                    </div>
+                {% endif %}
             </div>
         </section>
+        {% if faqs is not empty %}
+        <section class="faq" id="faq">
+            <div class="faq-container">
+                <h2 class="faq-title reveal">Questions fréquentes</h2>
+                <p class="faq-subtitle reveal">Retrouvez les réponses aux questions les plus posées</p>
+                <div class="faq-list reveal">
+                    {% for faq in faqs %}
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                <span>{{ faq.question }}</span>
+                                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+                            </button>
+                            <div class="faq-answer">
+                                <p>{{ faq.reponse }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        {% if membres is not empty %}
+        <section class="equipe" id="equipe">
+            <div class="equipe-container">
+                <h2 class="equipe-title reveal">Notre Équipe</h2>
+                <p class="equipe-subtitle reveal">Des professionnels passionnés à votre service</p>
+                <div class="equipe-grid reveal-stagger" data-limit-desktop="4" data-limit-mobile="2">
+                    {% for membre in membres %}
+                        <div class="equipe-card reveal-child">
+                            {% if membre.photo %}
+                                <img src="{{ asset('uploads/equipe/' ~ membre.photo) }}" alt="{{ membre.nom }}" class="equipe-photo" loading="lazy">
+                            {% else %}
+                                <div class="equipe-photo-placeholder">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/></svg>
+                                </div>
+                            {% endif %}
+                            <h3 class="equipe-nom">{{ membre.nom }}</h3>
+                            <p class="equipe-poste">{{ membre.poste }}</p>
+                            {% if membre.linkedin %}
+                                <a href="{{ membre.linkedin }}" class="equipe-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de {{ membre.nom }}">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z"/></svg>
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if membres|length > 2 %}
+                    <div class="voir-plus-wrapper reveal">
+                        <button class="btn-voir-plus" data-grid=".equipe-grid" data-child=".equipe-card">Voir plus</button>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+        {% endif %}
+        {% if partenaires is not empty %}
+        <section class="partenaires" id="partenaires">
+            <div class="partenaires-container">
+                <h2 class="partenaires-title reveal">Nos Partenaires</h2>
+                <p class="partenaires-subtitle reveal">Ils nous font confiance</p>
+                <div class="partenaires-carousel reveal">
+                    <div class="partenaires-track">
+                        {% for partenaire in partenaires %}
+                            <div class="partenaire-item" title="{{ partenaire.nom }}">
+                                {% if partenaire.url %}
+                                    <a href="{{ partenaire.url }}" target="_blank" rel="noopener noreferrer">
+                                        <img src="{{ asset('uploads/partenaires/' ~ partenaire.logo) }}" alt="{{ partenaire.nom }}" loading="lazy">
+                                    </a>
+                                {% else %}
+                                    <img src="{{ asset('uploads/partenaires/' ~ partenaire.logo) }}" alt="{{ partenaire.nom }}" loading="lazy">
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        {% for partenaire in partenaires %}
+                            <div class="partenaire-item" aria-hidden="true" title="{{ partenaire.nom }}">
+                                {% if partenaire.url %}
+                                    <a href="{{ partenaire.url }}" target="_blank" rel="noopener noreferrer">
+                                        <img src="{{ asset('uploads/partenaires/' ~ partenaire.logo) }}" alt="{{ partenaire.nom }}" loading="lazy">
+                                    </a>
+                                {% else %}
+                                    <img src="{{ asset('uploads/partenaires/' ~ partenaire.logo) }}" alt="{{ partenaire.nom }}" loading="lazy">
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
         <section class="contact" id="contact">
             <div class="contact-header reveal">
                 <h2 class="contact-title">Contactez-nous</h2>
@@ -122,7 +238,14 @@
             <div class="contact-container">
                 <div class="contact-form-card reveal reveal-left">
                     <h3 class="contact-form-title">Envoyez-nous un message</h3>
-                    <form method="post" action="#">
+                    {% if contactSent %}
+                        <div class="contact-success">
+                            <p>Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.</p>
+                        </div>
+                    {% endif %}
+                    <form method="post" action="{{ path('home') }}#contact" data-turbo="false">
+                        <input type="hidden" name="_token" value="{{ csrf_token('contact') }}">
+                        <input type="text" name="website_url" style="display:none" tabindex="-1" autocomplete="off">
                         <div class="form-group">
                             <label for="nom">Nom complet</label>
                             <input type="text" id="nom" name="nom" placeholder="Votre nom" required>

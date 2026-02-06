@@ -12,6 +12,7 @@ class Avis
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    /** @phpstan-ignore-next-line */
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
@@ -27,7 +28,7 @@ class Avis
     private ?int $note = null;
 
     #[ORM\Column]
-    private ?bool $actif = true;
+    private bool $actif = true;
 
     public function getId(): ?int
     {
@@ -82,7 +83,7 @@ class Avis
         return $this;
     }
 
-    public function isActif(): ?bool
+    public function isActif(): bool
     {
         return $this->actif;
     }

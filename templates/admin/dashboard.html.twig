@@ -3,6 +3,30 @@
 {% block page_title %}BusinessPro - Administration{% endblock %}
 
 {% block content_body %}
-    <h1>Bienvenue sur l'administration BusinessPro</h1>
-    <p>Utilisez le menu pour gérer les avis clients.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        <div style="background: #fff; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 4px solid #2563EB;">
+            <div style="color: #6b7280; font-size: 0.875rem; margin-bottom: 0.5rem;">
+                <i class="fa fa-envelope" style="margin-right: 0.5rem;"></i>Messages non lus
+            </div>
+            <div style="font-size: 2rem; font-weight: 700; color: #2563EB;">{{ messagesNonLus }}</div>
+        </div>
+        <div style="background: #fff; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 4px solid #059669;">
+            <div style="color: #6b7280; font-size: 0.875rem; margin-bottom: 0.5rem;">
+                <i class="fa fa-envelope" style="margin-right: 0.5rem;"></i>Total messages
+            </div>
+            <div style="font-size: 2rem; font-weight: 700; color: #059669;">{{ totalMessages }}</div>
+        </div>
+        <div style="background: #fff; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 4px solid #f59e0b;">
+            <div style="color: #6b7280; font-size: 0.875rem; margin-bottom: 0.5rem;">
+                <i class="fa fa-star" style="margin-right: 0.5rem;"></i>Avis clients
+            </div>
+            <div style="font-size: 2rem; font-weight: 700; color: #f59e0b;">{{ totalAvis }}</div>
+        </div>
+        <div style="background: #fff; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 4px solid #8b5cf6;">
+            <div style="color: #6b7280; font-size: 0.875rem; margin-bottom: 0.5rem;">
+                <i class="fa fa-image" style="margin-right: 0.5rem;"></i>Réalisations
+            </div>
+            <div style="font-size: 2rem; font-weight: 700; color: #8b5cf6;">{{ totalRealisations }}</div>
+        </div>
+    </div>
 {% endblock %}

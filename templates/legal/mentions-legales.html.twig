@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions légales — BusinessPro{% endblock %}
+
+{% block body %}
+<main class="page">
+    <section class="legal-page">
+        <div class="legal-container">
+            <h1 class="legal-title">Mentions légales</h1>
+
+            <h2>Éditeur du site</h2>
+            <p><strong>BusinessPro</strong><br>
+            Forme juridique : [À compléter]<br>
+            Capital social : [À compléter]<br>
+            Siège social : 123 Rue de la République, 75001 Paris, France<br>
+            SIRET : [À compléter]<br>
+            RCS : [À compléter]<br>
+            Téléphone : +33 1 23 45 67 89<br>
+            Email : contact@business.fr</p>
+
+            <h2>Directeur de la publication</h2>
+            <p>[Nom du directeur de la publication]</p>
+
+            <h2>Hébergeur</h2>
+            <p>[Nom de l'hébergeur]<br>
+            [Adresse de l'hébergeur]<br>
+            [Téléphone de l'hébergeur]</p>
+
+            <h2>Propriété intellectuelle</h2>
+            <p>L'ensemble du contenu de ce site (textes, images, vidéos, logos, icônes, sons, logiciels, etc.) est protégé par le droit d'auteur et le droit de la propriété intellectuelle. Toute reproduction, représentation, modification, publication, transmission ou dénaturation du site ou de son contenu, par quelque procédé que ce soit, et sur quelque support que ce soit, est interdite sans l'autorisation écrite préalable de BusinessPro.</p>
+
+            <h2>Limitation de responsabilité</h2>
+            <p>BusinessPro s'efforce de fournir des informations aussi précises que possible sur le site. Toutefois, elle ne pourra être tenue responsable des omissions, des inexactitudes et des carences dans la mise à jour, qu'elles soient de son fait ou du fait des tiers partenaires qui lui fournissent ces informations.</p>
+
+            <h2>Cookies</h2>
+            <p>Le site utilise des cookies pour améliorer l'expérience utilisateur. Pour en savoir plus, consultez notre <a href="{{ path('politique_confidentialite') }}">politique de confidentialité</a>.</p>
+
+            <h2>Droit applicable</h2>
+            <p>Les présentes mentions légales sont soumises au droit français. En cas de litige, les tribunaux français seront seuls compétents.</p>
+        </div>
+    </section>
+</main>
+{% endblock %}

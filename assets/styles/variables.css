@@ -1,0 +1,36 @@
+:root {
+    /* Couleurs Principales */
+    --primary-color: #2563EB;
+    --primary-hover: #1d4ed8;
+    --primary-light: #eff6ff; /* Background icônes */
+    --primary-bg: #dbeafe;    /* Background map */
+
+    /* Couleurs Textes */
+    --text-main: #1f2937;       /* Titres, textes importants */
+    --text-body: #4b5563;       /* Liens nav */
+    --text-muted: #6b7280;      /* Sous-titres, descriptions */
+    --text-light: #94a3b8;      /* Footer text */
+    --text-white: #ffffff;
+
+    /* Couleurs Backgrounds */
+    --bg-white: #ffffff;
+    --bg-light: #f8fafc;        /* Sections alternées */
+    --bg-dark: #1e293b;         /* Footer, Topbar, Cookie */
+    --bg-dark-hover: #334155;   /* Social icons hover */
+
+    /* Bordures */
+    --border-light: #e5e7eb;
+    --border-medium: #d1d5db;
+    --border-radius: 1rem;
+    --border-radius-sm: 0.5rem;
+    --border-width: 2px;
+
+    /* États */
+    --success-color: #059669;
+    --success-bg: #ecfdf5;
+    --success-border: #6ee7b7;
+
+    /* Layout */
+    --max-width: 1200px;
+    --header-height: 70px;
+}

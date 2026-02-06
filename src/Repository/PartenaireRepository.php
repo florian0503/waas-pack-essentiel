@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Repository;
+
+use App\Entity\Partenaire;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+
+/**
+ * @extends ServiceEntityRepository<Partenaire>
+ */
+class PartenaireRepository extends ServiceEntityRepository
+{
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Partenaire::class);
+    }
+
+    /**
+     * @return Partenaire[]
+     */
+    public function findActifs(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.actif = true')
+            ->orderBy('p.position', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+}

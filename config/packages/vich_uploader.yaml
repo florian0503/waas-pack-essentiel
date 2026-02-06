@@ -1,0 +1,25 @@
+vich_uploader:
+    db_driver: orm
+    metadata:
+        type: attribute
+
+    mappings:
+        realisations:
+            uri_prefix: /uploads/realisations
+            upload_destination: '%kernel.project_dir%/public/uploads/realisations'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+        equipe:
+            uri_prefix: /uploads/equipe
+            upload_destination: '%kernel.project_dir%/public/uploads/equipe'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+        partenaires:
+            uri_prefix: /uploads/partenaires
+            upload_destination: '%kernel.project_dir%/public/uploads/partenaires'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+        apropos:
+            uri_prefix: /uploads/apropos
+            upload_destination: '%kernel.project_dir%/public/uploads/apropos'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
