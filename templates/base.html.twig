@@ -5,7 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <meta name="description" content="BusinessPro — Services professionnels de qualité. Prestations sur mesure, expertise reconnue depuis plus de 15 ans. Contactez-nous pour un devis gratuit.">
+
+        {# Open Graph #}
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="{% block og_title %}BusinessPro — Services professionnels de qualité{% endblock %}">
+        <meta property="og:description" content="Prestations sur mesure, expertise reconnue depuis plus de 15 ans. Contactez-nous pour un devis gratuit.">
+        <meta property="og:image" content="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80">
+        <meta property="og:locale" content="fr_FR">
+
+        {# Twitter Cards #}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="BusinessPro — Services professionnels de qualité">
+        <meta name="twitter:description" content="Prestations sur mesure, expertise reconnue depuis plus de 15 ans. Contactez-nous pour un devis gratuit.">
+        <meta name="twitter:image" content="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80">
+
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><path d=%223 21H21V19H3V21Z%22 fill=%22%232563EB%22/><path d=%225 19V9H9V19H5Z%22 fill=%22%232563EB%22/><path d=%2211 19V13H15V19H11Z%22 fill=%22%232563EB%22/><path d=%2217 19V7H21V19H17Z%22 fill=%22%232563EB%22/><path d=%225 9L7 7L9 9H5Z%22 fill=%22%232563EB%22/><path d=%2217 7L19 5L21 7H17Z%22 fill=%22%232563EB%22/><path d=%227 7H17V5H7V7Z%22 fill=%22%232563EB%22/></svg>">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
         {% block stylesheets %}
         {% endblock %}
 
@@ -14,6 +31,9 @@
         {% endblock %}
     </head>
     <body>
+        <div class="preloader" id="preloader">
+            <div class="preloader-spinner"></div>
+        </div>
         <div class="topbar">
             <div class="topbar-container">
                 <div class="topbar-left">
@@ -135,6 +155,11 @@
         <a href="#" class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" aria-label="Retour en haut">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
         </a>
+
+        <div class="lightbox" id="lightbox">
+            <button class="lightbox-close" aria-label="Fermer">&times;</button>
+            <img class="lightbox-img" id="lightbox-img" src="" alt="">
+        </div>
 
         <div class="cookie-banner" id="cookie-banner">
             <p class="cookie-text">Nous utilisons des cookies pour améliorer votre expérience sur notre site. En poursuivant votre navigation, vous acceptez leur utilisation.</p>

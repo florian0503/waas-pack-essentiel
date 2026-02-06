@@ -1,6 +1,15 @@
 import './stimulus_bootstrap.js';
 import './styles/app.css';
 
+// Hide preloader
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        preloader.classList.add('hidden');
+        setTimeout(() => preloader.remove(), 400);
+    }
+});
+
 // Scroll reveal animations
 document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
@@ -85,6 +94,29 @@ document.addEventListener('DOMContentLoaded', () => {
             if (topbar) {
                 topbar.classList.toggle('topbar-hidden', y > 50);
             }
+        });
+    }
+
+    // Lightbox réalisations
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    if (lightbox) {
+        document.querySelectorAll('.realisation-card img').forEach((img) => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.classList.add('visible');
+            });
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.classList.contains('lightbox-close')) {
+                lightbox.classList.remove('visible');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') lightbox.classList.remove('visible');
         });
     }
 
