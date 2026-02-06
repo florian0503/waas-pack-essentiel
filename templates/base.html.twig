@@ -135,5 +135,59 @@
         <a href="#" class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" aria-label="Retour en haut">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
         </a>
+
+        <div class="cookie-banner" id="cookie-banner">
+            <p class="cookie-text">Nous utilisons des cookies pour améliorer votre expérience sur notre site. En poursuivant votre navigation, vous acceptez leur utilisation.</p>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-accept" id="cookie-accept">Accepter tout</button>
+                <button class="cookie-btn cookie-settings" id="cookie-settings">Paramétrer</button>
+                <button class="cookie-btn cookie-refuse" id="cookie-refuse">Refuser tout</button>
+            </div>
+        </div>
+
+        <div class="cookie-modal-overlay" id="cookie-modal-overlay">
+            <div class="cookie-modal">
+                <div class="cookie-modal-header">
+                    <h3 class="cookie-modal-title">Paramétrer les cookies</h3>
+                    <button class="cookie-modal-close" id="cookie-modal-close" aria-label="Fermer">&times;</button>
+                </div>
+                <div class="cookie-modal-body">
+                    <div class="cookie-option">
+                        <div class="cookie-option-info">
+                            <strong>Cookies essentiels</strong>
+                            <p>Nécessaires au fonctionnement du site. Ils ne peuvent pas être désactivés.</p>
+                        </div>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" checked disabled>
+                            <span class="cookie-toggle-slider disabled"></span>
+                        </label>
+                    </div>
+                    <div class="cookie-option">
+                        <div class="cookie-option-info">
+                            <strong>Cookies analytiques</strong>
+                            <p>Nous aident à comprendre comment vous utilisez le site afin de l'améliorer.</p>
+                        </div>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-analytics">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="cookie-option">
+                        <div class="cookie-option-info">
+                            <strong>Cookies marketing</strong>
+                            <p>Utilisés pour vous proposer des publicités pertinentes et mesurer leur efficacité.</p>
+                        </div>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-marketing">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="cookie-modal-footer">
+                    <button class="cookie-btn cookie-refuse" id="cookie-refuse-all">Refuser tout</button>
+                    <button class="cookie-btn cookie-accept" id="cookie-save">Enregistrer mes choix</button>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

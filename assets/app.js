@@ -105,4 +105,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
         sections.forEach((section) => spyObserver.observe(section));
     }
+
+    // Cookie banner & modal
+    const cookieBanner = document.getElementById('cookie-banner');
+    const cookieOverlay = document.getElementById('cookie-modal-overlay');
+
+    if (cookieBanner && !localStorage.getItem('cookie-consent')) {
+        setTimeout(() => cookieBanner.classList.add('visible'), 1000);
+
+        function closeBanner() {
+            cookieBanner.classList.remove('visible');
+        }
+
+        function closeModal() {
+            if (cookieOverlay) cookieOverlay.classList.remove('visible');
+        }
+
+        function saveConsent(analytics, marketing) {
+            localStorage.setItem('cookie-consent', JSON.stringify({
+                essential: true,
+                analytics: analytics,
+                marketing: marketing,
+            }));
+            closeBanner();
+            closeModal();
+        }
+
+        document.getElementById('cookie-accept').addEventListener('click', () => saveConsent(true, true));
+        document.getElementById('cookie-refuse').addEventListener('click', () => saveConsent(false, false));
+
+        // Open modal
+        document.getElementById('cookie-settings').addEventListener('click', () => {
+            cookieOverlay.classList.add('visible');
+        });
+
+        // Close modal
+        document.getElementById('cookie-modal-close').addEventListener('click', closeModal);
+        cookieOverlay.addEventListener('click', (e) => {
+            if (e.target === cookieOverlay) closeModal();
+        });
+
+        // Modal buttons
+        document.getElementById('cookie-refuse-all').addEventListener('click', () => saveConsent(false, false));
+        document.getElementById('cookie-save').addEventListener('click', () => {
+            const analytics = document.getElementById('cookie-analytics').checked;
+            const marketing = document.getElementById('cookie-marketing').checked;
+            saveConsent(analytics, marketing);
+        });
+    }
 });
