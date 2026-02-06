@@ -135,7 +135,12 @@
             <div class="contact-container">
                 <div class="contact-form-card reveal reveal-left">
                     <h3 class="contact-form-title">Envoyez-nous un message</h3>
-                    <form method="post" action="#">
+                    {% if contactSent %}
+                        <div class="contact-success">
+                            <p>Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.</p>
+                        </div>
+                    {% endif %}
+                    <form method="post" action="{{ path('home') }}#contact" data-turbo="false">
                         <div class="form-group">
                             <label for="nom">Nom complet</label>
                             <input type="text" id="nom" name="nom" placeholder="Votre nom" required>

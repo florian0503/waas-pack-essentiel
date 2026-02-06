@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Avis;
+use App\Entity\Contact;
 use App\Entity\Realisation;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -31,5 +32,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Avis clients', 'fa fa-star', Avis::class);
         yield MenuItem::linkToCrud('Réalisations', 'fa fa-image', Realisation::class);
+        yield MenuItem::linkToCrud('Messages', 'fa fa-envelope', Contact::class);
     }
 }

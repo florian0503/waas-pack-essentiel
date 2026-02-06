@@ -370,6 +370,20 @@ body {
     background-color: #1d4ed8;
 }
 
+.contact-success {
+    background-color: #ecfdf5;
+    border: 1px solid #6ee7b7;
+    color: #065f46;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
+}
+
+.contact-success p {
+    margin: 0;
+}
+
 .contact-info-side {
     display: flex;
     flex-direction: column;
