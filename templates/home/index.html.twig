@@ -73,6 +73,22 @@
                 </div>
             </div>
         </section>
+        {% if chiffres is not empty %}
+        <section class="chiffres" id="chiffres">
+            <div class="chiffres-container reveal">
+                {% for chiffre in chiffres %}
+                    <div class="chiffre-item">
+                        {% if chiffre.icone %}
+                            <i class="{{ chiffre.icone }} chiffre-icon"></i>
+                        {% endif %}
+                        <span class="chiffre-nombre" data-target="{{ chiffre.nombre }}">0</span>
+                        <span class="chiffre-label">{{ chiffre.label }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
         <section class="avis" id="avis">
             <div class="avis-container">
                 <h2 class="avis-title reveal">Ce que disent nos clients</h2>
@@ -127,6 +143,89 @@
                 </div>
             </div>
         </section>
+        {% if faqs is not empty %}
+        <section class="faq" id="faq">
+            <div class="faq-container">
+                <h2 class="faq-title reveal">Questions fréquentes</h2>
+                <p class="faq-subtitle reveal">Retrouvez les réponses aux questions les plus posées</p>
+                <div class="faq-list reveal">
+                    {% for faq in faqs %}
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                <span>{{ faq.question }}</span>
+                                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+                            </button>
+                            <div class="faq-answer">
+                                <p>{{ faq.reponse }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        {% if membres is not empty %}
+        <section class="equipe" id="equipe">
+            <div class="equipe-container">
+                <h2 class="equipe-title reveal">Notre Équipe</h2>
+                <p class="equipe-subtitle reveal">Des professionnels passionnés à votre service</p>
+                <div class="equipe-grid reveal-stagger">
+                    {% for membre in membres %}
+                        <div class="equipe-card reveal-child">
+                            {% if membre.photo %}
+                                <img src="{{ asset('uploads/equipe/' ~ membre.photo) }}" alt="{{ membre.nom }}" class="equipe-photo" loading="lazy">
+                            {% else %}
+                                <div class="equipe-photo-placeholder">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/></svg>
+                                </div>
+                            {% endif %}
+                            <h3 class="equipe-nom">{{ membre.nom }}</h3>
+                            <p class="equipe-poste">{{ membre.poste }}</p>
+                            {% if membre.linkedin %}
+                                <a href="{{ membre.linkedin }}" class="equipe-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de {{ membre.nom }}">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z"/></svg>
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        {% if partenaires is not empty %}
+        <section class="partenaires" id="partenaires">
+            <div class="partenaires-container">
+                <h2 class="partenaires-title reveal">Nos Partenaires</h2>
+                <p class="partenaires-subtitle reveal">Ils nous font confiance</p>
+                <div class="partenaires-carousel reveal">
+                    <div class="partenaires-track">
+                        {% for partenaire in partenaires %}
+                            <div class="partenaire-item" title="{{ partenaire.nom }}">
+                                {% if partenaire.url %}
+                                    <a href="{{ partenaire.url }}" target="_blank" rel="noopener noreferrer">
+                                        <img src="{{ asset('uploads/partenaires/' ~ partenaire.logo) }}" alt="{{ partenaire.nom }}" loading="lazy">
+                                    </a>
+                                {% else %}
+                                    <img src="{{ asset('uploads/partenaires/' ~ partenaire.logo) }}" alt="{{ partenaire.nom }}" loading="lazy">
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        {% for partenaire in partenaires %}
+                            <div class="partenaire-item" aria-hidden="true" title="{{ partenaire.nom }}">
+                                {% if partenaire.url %}
+                                    <a href="{{ partenaire.url }}" target="_blank" rel="noopener noreferrer">
+                                        <img src="{{ asset('uploads/partenaires/' ~ partenaire.logo) }}" alt="{{ partenaire.nom }}" loading="lazy">
+                                    </a>
+                                {% else %}
+                                    <img src="{{ asset('uploads/partenaires/' ~ partenaire.logo) }}" alt="{{ partenaire.nom }}" loading="lazy">
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
         <section class="contact" id="contact">
             <div class="contact-header reveal">
                 <h2 class="contact-title">Contactez-nous</h2>
@@ -141,6 +240,8 @@
                         </div>
                     {% endif %}
                     <form method="post" action="{{ path('home') }}#contact" data-turbo="false">
+                        <input type="hidden" name="_token" value="{{ csrf_token('contact') }}">
+                        <input type="text" name="website_url" style="display:none" tabindex="-1" autocomplete="off">
                         <div class="form-group">
                             <label for="nom">Nom complet</label>
                             <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
