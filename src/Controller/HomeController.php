@@ -8,6 +8,7 @@ use App\Repository\RealisationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -38,7 +39,13 @@ class HomeController extends AbstractController
                 $em->persist($contact);
                 $em->flush();
 
+                if ($request->isXmlHttpRequest()) {
+                    return new JsonResponse(['success' => true]);
+                }
+
                 $contactSent = true;
+            } elseif ($request->isXmlHttpRequest()) {
+                return new JsonResponse(['success' => false], 400);
             }
         }
 

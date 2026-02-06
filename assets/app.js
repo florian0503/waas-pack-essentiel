@@ -88,6 +88,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Contact form AJAX submit
+    const contactForm = document.querySelector('.contact-form-card form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = contactForm.querySelector('.btn-submit');
+            const originalText = btn.textContent;
+
+            // Loader state
+            btn.disabled = true;
+            btn.innerHTML = '<span class="btn-spinner"></span> Envoi en cours...';
+
+            const formData = new FormData(contactForm);
+
+            fetch('/', {
+                method: 'POST',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                body: formData,
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.success) {
+                        // Success message
+                        btn.innerHTML = 'Message envoyé !';
+                        btn.classList.add('btn-success');
+                        contactForm.reset();
+
+                        // Remove existing success message if any
+                        const existing = contactForm.parentElement.querySelector('.contact-success');
+                        if (existing) existing.remove();
+
+                        const msg = document.createElement('div');
+                        msg.className = 'contact-success';
+                        msg.innerHTML = '<p>Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.</p>';
+                        contactForm.parentElement.insertBefore(msg, contactForm);
+
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                            btn.classList.remove('btn-success');
+                            btn.disabled = false;
+                        }, 3000);
+                    }
+                })
+                .catch(() => {
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                });
+        });
+    }
+
     // Active nav link on scroll (spy)
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-section .nav-link');
