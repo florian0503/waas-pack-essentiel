@@ -18,3 +18,8 @@ vich_uploader:
             uri_prefix: /uploads/partenaires
             upload_destination: '%kernel.project_dir%/public/uploads/partenaires'
             namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+        apropos:
+            uri_prefix: /uploads/apropos
+            upload_destination: '%kernel.project_dir%/public/uploads/apropos'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer

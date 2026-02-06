@@ -2,20 +2,32 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\APropos;
 use App\Entity\Avis;
 use App\Entity\ChiffreCle;
 use App\Entity\Contact;
 use App\Entity\Faq;
 use App\Entity\Membre;
 use App\Entity\Partenaire;
+use App\Entity\Prestation;
 use App\Entity\Realisation;
+use App\Entity\User;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
 {
+    public function __construct(
+        private UserPasswordHasherInterface $passwordHasher,
+    ) {
+    }
+
     public function load(ObjectManager $manager): void
     {
+        $this->loadUser($manager);
+        $this->loadPrestations($manager);
+        $this->loadAPropos($manager);
         $this->loadAvis($manager);
         $this->loadRealisations($manager);
         $this->loadChiffresCles($manager);
@@ -25,6 +37,44 @@ class AppFixtures extends Fixture
         $this->loadContacts($manager);
 
         $manager->flush();
+    }
+
+    private function loadUser(ObjectManager $manager): void
+    {
+        $user = new User();
+        $user->setEmail('admin@business.fr');
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setPassword($this->passwordHasher->hashPassword($user, 'admin'));
+        $manager->persist($user);
+    }
+
+    private function loadPrestations(ObjectManager $manager): void
+    {
+        $prestationsData = [
+            ['nom' => 'Service Professionnel', 'description' => 'Des prestations de qualité réalisées par des experts qualifiés avec un souci du détail exceptionnel.', 'icone' => 'fa-solid fa-wrench', 'position' => 1],
+            ['nom' => 'Rapidité et Efficacité', 'description' => 'Nous travaillons rapidement et efficacement pour vous offrir des solutions optimisées et rapides.', 'icone' => 'fa-solid fa-clock', 'position' => 2],
+            ['nom' => 'Reconnaissance et Distinction', 'description' => 'Nos services sont reconnus et se distinguent par leur excellence et leur professionnalisme.', 'icone' => 'fa-solid fa-award', 'position' => 3],
+        ];
+
+        foreach ($prestationsData as $data) {
+            $prestation = new Prestation();
+            $prestation->setNom($data['nom']);
+            $prestation->setDescription($data['description']);
+            $prestation->setIcone($data['icone']);
+            $prestation->setPosition($data['position']);
+            $prestation->setActif(true);
+            $manager->persist($prestation);
+        }
+    }
+
+    private function loadAPropos(ObjectManager $manager): void
+    {
+        $apropos = new APropos();
+        $apropos->setTitre('Qui sommes-nous ?');
+        $apropos->setParagraphe1('Depuis plus de 15 ans, nous mettons notre expertise au service de nos clients pour leur offrir des prestations de qualité supérieure. Notre équipe de professionnels qualifiés s\'engage à fournir des résultats exceptionnels.');
+        $apropos->setParagraphe2('Nous croyons en l\'importance de l\'écoute, de la transparence et de l\'excellence. Chaque projet est une opportunité de démontrer notre savoir-faire et notre engagement envers la satisfaction client.');
+        $apropos->setParagraphe3('Notre approche personnalisée garantit que chaque solution est parfaitement adaptée à vos besoins spécifiques, avec un souci constant de la qualité et des délais.');
+        $manager->persist($apropos);
     }
 
     private function loadAvis(ObjectManager $manager): void

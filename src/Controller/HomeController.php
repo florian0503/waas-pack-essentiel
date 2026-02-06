@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Repository\AProposRepository;
 use App\Repository\AvisRepository;
 use App\Repository\ChiffreCleRepository;
 use App\Repository\FaqRepository;
 use App\Repository\MembreRepository;
 use App\Repository\PartenaireRepository;
+use App\Repository\PrestationRepository;
 use App\Repository\RealisationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,6 +29,8 @@ class HomeController extends AbstractController
         FaqRepository $faqRepository,
         PartenaireRepository $partenaireRepository,
         MembreRepository $membreRepository,
+        PrestationRepository $prestationRepository,
+        AProposRepository $aProposRepository,
         EntityManagerInterface $em,
     ): Response {
         $contactSent = false;
@@ -78,6 +82,8 @@ class HomeController extends AbstractController
         }
 
         return $this->render('home/index.html.twig', [
+            'prestations' => $prestationRepository->findActives(),
+            'apropos' => $aProposRepository->findOne(),
             'avis' => $avisRepository->findActifs(),
             'realisations' => $realisationRepository->findActives(),
             'chiffres' => $chiffreCleRepository->findActifs(),
