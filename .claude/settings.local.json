@@ -15,7 +15,13 @@
       "Bash(git status:*)",
       "Bash(git merge:*)",
       "Bash(vendor/bin/php-cs-fixer fix:*)",
-      "Bash(vendor/bin/phpstan analyse:*)"
+      "Bash(vendor/bin/phpstan analyse:*)",
+      "Bash(gh run list:*)",
+      "Bash(git push:*)",
+      "Bash(curl:*)",
+      "Bash(ls -la \"C:\\\\Users\\\\Laboratoires HAGRAL\\\\Desktop\\\\onepage\\\\public\\\\uploads\\\\realisations\"\" && echo \"---\" && ls -la \"C:UsersLaboratoires HAGRALDesktoponepagepublicuploadsequipe\"\")",
+      "Bash(npx encore:*)",
+      "Bash(npm run dev:*)"
     ]
   }
 }

@@ -2,12 +2,14 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\APropos;
 use App\Entity\Avis;
 use App\Entity\ChiffreCle;
 use App\Entity\Contact;
 use App\Entity\Faq;
 use App\Entity\Membre;
 use App\Entity\Partenaire;
+use App\Entity\Prestation;
 use App\Entity\Realisation;
 use App\Repository\AvisRepository;
 use App\Repository\ContactRepository;
@@ -59,6 +61,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
         yield MenuItem::section('Contenu');
+        yield MenuItem::linkToCrud('Prestations', 'fa fa-briefcase', Prestation::class);
+        yield MenuItem::linkToCrud('À propos', 'fa fa-info-circle', APropos::class);
         yield MenuItem::linkToCrud('Avis clients', 'fa fa-star', Avis::class);
         yield MenuItem::linkToCrud('Réalisations', 'fa fa-image', Realisation::class);
         yield MenuItem::linkToCrud('Chiffres clés', 'fa fa-chart-bar', ChiffreCle::class);

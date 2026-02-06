@@ -36,6 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 children.forEach((child, index) => {
                     child.style.transitionDelay = `${index * 150}ms`;
                     child.classList.add('revealed');
+                    // Nettoyer le delay après l'animation pour ne pas affecter le hover
+                    child.addEventListener('transitionend', () => {
+                        child.style.transitionDelay = '';
+                    }, { once: true });
                 });
                 staggerObserver.unobserve(entry.target);
             }
@@ -243,6 +247,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         sections.forEach((section) => spyObserver.observe(section));
     }
+
+    // Voir plus buttons
+    document.querySelectorAll('.btn-voir-plus').forEach((btn) => {
+        const gridSelector = btn.dataset.grid;
+        const childSelector = btn.dataset.child;
+        const grid = document.querySelector(gridSelector);
+        if (!grid) return;
+
+        const children = grid.querySelectorAll(childSelector);
+        const limitDesktop = parseInt(grid.dataset.limitDesktop, 10);
+        const limitMobile = parseInt(grid.dataset.limitMobile, 10);
+
+        function updateButtonVisibility() {
+            const isMobile = window.innerWidth <= 768;
+            const limit = isMobile ? limitMobile : limitDesktop;
+            const isExpanded = grid.classList.contains('expanded');
+            btn.parentElement.style.display = (children.length > limit || isExpanded) ? '' : 'none';
+        }
+
+        updateButtonVisibility();
+        window.addEventListener('resize', updateButtonVisibility);
+
+        btn.addEventListener('click', () => {
+            const isExpanded = grid.classList.contains('expanded');
+            grid.classList.toggle('expanded');
+            btn.classList.toggle('expanded');
+            btn.textContent = isExpanded ? 'Voir plus' : 'Voir moins';
+        });
+    });
 
     // Cookie banner & modal
     const cookieBanner = document.getElementById('cookie-banner');
