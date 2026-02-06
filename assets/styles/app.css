@@ -1,7 +1,21 @@
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+.page {
+    padding-top: 110px;
+}
+
+section[id] {
+    scroll-margin-top: 90px;
+}
+
 body {
     background-color: #ffffff;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
@@ -87,6 +101,22 @@ body {
     color: #ffffff;
     padding: 0.5rem 2rem;
     font-size: 0.8125rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+    max-height: 50px;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+}
+
+.topbar-hidden {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    overflow: hidden;
 }
 
 .topbar-container {
@@ -149,6 +179,16 @@ body {
     background-color: #ffffff;
     padding: 1rem 2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 36px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: top 0.3s ease;
+}
+
+.topbar-hidden + .header {
+    top: 0;
 }
 
 .header-container {
@@ -216,6 +256,7 @@ body {
     cursor: pointer;
     transition: background-color 0.2s ease;
     font-family: inherit;
+    text-decoration: none;
 }
 
 .cta-button:hover {
@@ -553,10 +594,12 @@ body {
     height: 24px;
 }
 
-.scroll-top:hover {
-    background-color: transparent;
-    color: #2563EB;
-    border: 2px solid #2563EB;
+@media (hover: hover) {
+    .scroll-top:hover {
+        background-color: transparent;
+        color: #2563EB;
+        border: 2px solid #2563EB;
+    }
 }
 
 /* Hero */
@@ -960,6 +1003,10 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+    .footer-nav-col {
+        display: none;
+    }
+
     .topbar {
         padding: 0.5rem 1rem;
     }
@@ -1042,7 +1089,8 @@ body {
     }
 
     .hero-buttons {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 
     .btn-primary,
@@ -1101,5 +1149,7 @@ body {
     .scroll-top {
         bottom: 1rem;
         right: 1rem;
+        width: 40px;
+        height: 40px;
     }
 }
